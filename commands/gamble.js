@@ -19,6 +19,12 @@ module.exports = {
             gamFile[userId] = {money: 1000, wins: 0}; //if not, create it
             fs.writeFileSync(gamPath, JSON.stringify(gamFile, null, 2));
         } else {
+            if(gamFile[userId].money < args[0])
+                return message.reply(`you don't have enough money L`);
+            
+            if(args[0] < 0)
+                return message.reply(`you cheater! Frick you! L`);
+
             var betProb = 0;
 
             switch(args[1]){
@@ -59,7 +65,7 @@ module.exports = {
                 let playerWins = Number(gamFile[userId].wins);
                 gamFile[userId] = {money: playerMoney, wins: playerWins};
                 fs.writeFileSync(gamPath, JSON.stringify(gamFile, null, 2));
-                return message.reply('you lost with a bank total of $' + playerMoney + 'L');
+                return message.reply('you lost with a bank total of $' + playerMoney + ' L');
             }
             
         }
